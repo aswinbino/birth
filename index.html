@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>psst... this is private 🌸</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Outfit:wght@100..900&family=Caveat:wght@400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=5">
+</head>
+<body>
+
+  <!-- Floating Settings Gear Button -->
+  <button id="settings-toggle" class="settings-btn" title="Customize Card ⚙️">
+    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+  </button>
+
+  <!-- Canvas for Confetti -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Background decorative stripes & sparkles -->
+  <div class="decorations">
+    <div class="sparkle sp-1">✦</div>
+    <div class="sparkle sp-2">✦</div>
+    <div class="sparkle sp-3">✦</div>
+    <div class="sparkle sp-4">✦</div>
+    <div class="sparkle sp-5">✦</div>
+    <div class="dotted-line dl-1"></div>
+    <div class="dotted-line dl-2"></div>
+  </div>
+
+  <!-- Reusable Giraffe SVG Macros definitions -->
+  <svg class="hidden">
+    <defs>
+      <!-- Base Giraffe Body -->
+      <g id="giraffe-body">
+        <!-- Shadow -->
+        <ellipse cx="100" cy="275" rx="45" ry="10" fill="#E6DFD3" />
+        <!-- Legs -->
+        <rect x="75" y="210" width="12" height="60" rx="6" fill="#FAD06C" />
+        <rect x="113" y="210" width="12" height="60" rx="6" fill="#FAD06C" />
+        <rect x="63" y="200" width="12" height="65" rx="6" fill="#E2BC5A" />
+        <rect x="125" y="200" width="12" height="65" rx="6" fill="#E2BC5A" />
+        <!-- Hooves -->
+        <path d="M75 262h12v8H75z" fill="#806229" />
+        <path d="M113 262h12v8H113z" fill="#806229" />
+        <path d="M63 257h12v8H63z" fill="#6E5421" />
+        <path d="M125 257h12v8H125z" fill="#6E5421" />
+        <!-- Body -->
+        <rect x="65" y="150" width="70" height="70" rx="30" fill="#FAD06C" />
+        <!-- Neck -->
+        <rect x="87" y="60" width="26" height="110" rx="10" fill="#FAD06C" />
+        <!-- Spots -->
+        <circle cx="100" cy="90" r="6" fill="#CF8C35" />
+        <circle cx="95" cy="120" r="7" fill="#CF8C35" />
+        <circle cx="105" cy="150" r="5" fill="#CF8C35" />
+        <circle cx="80" cy="180" r="8" fill="#CF8C35" />
+        <circle cx="115" cy="175" r="9" fill="#CF8C35" />
+        <!-- Tail -->
+        <path d="M68 185c-10 10-12 25-10 30" stroke="#FAD06C" stroke-width="6" stroke-linecap="round" fill="none" />
+        <ellipse cx="58" cy="216" rx="6" ry="10" fill="#806229" transform="rotate(-30 58 216)" />
+        <!-- Head -->
+        <rect x="75" y="25" width="50" height="45" rx="20" fill="#FAD06C" />
+        <!-- Muzzle -->
+        <rect x="70" y="45" width="60" height="25" rx="12" fill="#FFE2A0" />
+        <!-- Nose -->
+        <circle cx="92" cy="55" r="2.5" fill="#C5A475" />
+        <circle cx="108" cy="55" r="2.5" fill="#C5A475" />
+        <!-- Rosy Cheeks -->
+        <circle cx="78" cy="46" r="4.5" fill="#FF8D8D" opacity="0.8" />
+        <circle cx="122" cy="46" r="4.5" fill="#FF8D8D" opacity="0.8" />
+        <!-- Ears -->
+        <path d="M77 28c-12-6-15 10-10 15 3 2 7 0 10-5v-10z" fill="#FAD06C" />
+        <path d="M75 30c-8-4-10 6-6 10 2 1 5 0 6-3v-7z" fill="#FFE2A0" />
+        <path d="M123 28c12-6 15 10 10 15-3 2-7 0-10-5v-10z" fill="#FAD06C" />
+        <path d="M125 30c8-4 10 6 6 10-2 1-5 0-6-3v-7z" fill="#FFE2A0" />
+        <!-- Horns -->
+        <line x1="90" y1="28" x2="86" y2="12" stroke="#FAD06C" stroke-width="6" stroke-linecap="round" />
+        <circle cx="85" cy="10" r="6" fill="#806229" />
+        <line x1="110" y1="28" x2="114" y2="12" stroke="#FAD06C" stroke-width="6" stroke-linecap="round" />
+        <circle cx="115" cy="10" r="6" fill="#806229" />
+      </g>
+    </defs>
+  </svg>
+
+  <div class="app-container">
+
+    <!-- STAGE 1: Password Wall -->
+    <div id="stage-password" class="card-stage active">
+      <div class="private-card">
+        <h1 class="card-title">psst... this is private</h1>
+        <p class="card-subtitle" id="pwd-subtitle">made just for one very tall-hearted person</p>
+        
+        <div class="form-group">
+          <label for="password-input" class="input-label">PASSWORD</label>
+          <div class="password-wrapper">
+            <input type="text" id="password-input" placeholder="type it in..." autocomplete="off">
+            <button type="button" id="toggle-password-visibility" class="toggle-pwd-btn" title="Toggle visibility">🙈</button>
+          </div>
+          <p class="error-msg" id="password-error">Oops! That's not the secret code 🤫</p>
+        </div>
+
+        <div class="captcha-mock" id="captcha-box">
+          <label class="captcha-container">
+            <input type="checkbox" id="captcha-checkbox">
+            <span class="checkmark"></span>
+            <span class="captcha-text">I'm not a robot</span>
+          </label>
+          <div class="captcha-brand">
+            <div class="captcha-logo">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="#4285F4"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
+            </div>
+            <span class="logo-subtext">reCAPTCHA</span>
+            <span class="links-subtext">privacy • terms</span>
+          </div>
+        </div>
+
+        <button id="btn-submit-password" class="btn-primary" disabled>continue</button>
+        
+        <div class="hint-wrapper">
+          <button id="btn-hint" class="btn-hint-trigger">a little hint from me to you 🌸</button>
+          <div id="hint-tooltip" class="hint-tooltip-box hidden">
+            <p id="pwd-hint-text">What animal has a very long neck? 🦒</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STAGE 2: Greeting Welcome -->
+    <div id="stage-welcome" class="card-stage">
+      <div class="welcome-content">
+        <!-- Cute SVG Giraffe holding a flower -->
+        <div class="giraffe-container">
+          <svg viewBox="0 0 200 300" width="160" height="240">
+            <use href="#giraffe-body" />
+            <!-- Cute Eyes -->
+            <circle cx="88" cy="38" r="3.5" fill="#2E2E2E" />
+            <circle cx="112" cy="38" r="3.5" fill="#2E2E2E" />
+            <!-- Pink flower in mouth -->
+            <path d="M115 57c5 4 15 5 22 2" stroke="#71B26E" stroke-width="3" stroke-linecap="round" fill="none" />
+            <path d="M130 52c-2 4-5 8-8 8" stroke="#71B26E" stroke-width="2.5" stroke-linecap="round" fill="none" />
+            <circle cx="137" cy="59" r="6" fill="#FF8CBF" />
+            <circle cx="142" cy="54" r="5" fill="#FF8CBF" />
+            <circle cx="143" cy="64" r="5" fill="#FF8CBF" />
+            <circle cx="132" cy="63" r="5" fill="#FF8CBF" />
+            <circle cx="132" cy="54" r="5" fill="#FF8CBF" />
+            <circle cx="137" cy="59" r="3.5" fill="#FEE09B" />
+          </svg>
+        </div>
+
+        <h2 class="welcome-heading">hey <span class="bestie-name-placeholder">Bestie</span>!</h2>
+        <p class="welcome-text">i made something for you... do you wanna see it?</p>
+
+        <div class="welcome-actions">
+          <button id="btn-accept" class="btn-primary">yes, obviously</button>
+          <button id="btn-decline" class="btn-secondary">no</button>
+        </div>
+        <button id="btn-welcome-back" class="btn-outline" style="margin-top: 24px;">← back</button>
+      </div>
+    </div>
+
+    <!-- STAGE 2.5: Rejection / Angry Stage -->
+    <div id="stage-angry" class="card-stage">
+      <div class="welcome-content">
+        <!-- Angry Frowning Giraffe SVG -->
+        <div class="giraffe-container angry-bounce">
+          <svg viewBox="0 0 200 300" width="160" height="240">
+            <use href="#giraffe-body" />
+            <!-- Angry Eyes (slant lines instead of circles) -->
+            <path d="M82 34l12 6M118 34l-12 6" stroke="#2E2E2E" stroke-width="3.5" stroke-linecap="round" />
+            <circle cx="87" cy="41" r="3" fill="#2E2E2E" />
+            <circle cx="113" cy="41" r="3" fill="#2E2E2E" />
+            <!-- Frown mouth -->
+            <path d="M92 60c0 0 8-5 16 0" stroke="#2E2E2E" stroke-width="3" stroke-linecap="round" fill="none" />
+          </svg>
+        </div>
+
+        <h2 class="welcome-heading" style="color: #6C533A;">SERIOUSLY!?</h2>
+        <p class="welcome-text" style="color: var(--text-dark);">how dare you... hmph 😤</p>
+
+        <div class="welcome-actions" style="max-width: 180px;">
+          <button id="btn-angry-back" class="btn-primary">← go back</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STAGE 3: Three Surprises Selection Grid -->
+    <div id="stage-selection" class="card-stage">
+      <div class="selection-heading-area">
+        <h2 class="selection-title">tap each little guy to open</h2>
+        <p class="selection-subtitle">three tiny surprises 🎁</p>
+      </div>
+
+      <div class="giraffe-cards-row">
+        <!-- Card 1: Memories -->
+        <div class="surprise-card" id="card-memories" data-surprise="memories">
+          <div class="card-img-holder">
+            <svg viewBox="0 0 200 300" width="120" height="180">
+              <use href="#giraffe-body" />
+              <circle cx="88" cy="38" r="3.5" fill="#2E2E2E" />
+              <circle cx="112" cy="38" r="3.5" fill="#2E2E2E" />
+              <!-- Camera Badge -->
+              <rect x="88" y="170" width="24" height="16" rx="4" fill="#5F44C1" />
+              <circle cx="100" cy="178" r="4" fill="#FFFFFF" />
+              <rect x="97" y="166" width="6" height="4" fill="#5F44C1" />
+            </svg>
+          </div>
+          <span class="card-label">memories</span>
+        </div>
+
+        <!-- Card 2: A Letter -->
+        <div class="surprise-card" id="card-letter" data-surprise="letter">
+          <div class="card-img-holder">
+            <svg viewBox="0 0 200 300" width="120" height="180">
+              <use href="#giraffe-body" />
+              <circle cx="88" cy="38" r="3.5" fill="#2E2E2E" />
+              <circle cx="112" cy="38" r="3.5" fill="#2E2E2E" />
+              <!-- Mail/Letter Badge -->
+              <rect x="88" y="170" width="24" height="16" rx="3" fill="#FFE8E8" stroke="#5F44C1" stroke-width="2" />
+              <path d="M88 172l12 7 12-7" stroke="#5F44C1" stroke-width="2" fill="none" />
+            </svg>
+          </div>
+          <span class="card-label">a letter</span>
+        </div>
+
+        <!-- Card 3: A Song -->
+        <div class="surprise-card" id="card-song" data-surprise="song">
+          <div class="card-img-holder">
+            <svg viewBox="0 0 200 300" width="120" height="180">
+              <use href="#giraffe-body" />
+              <circle cx="88" cy="38" r="3.5" fill="#2E2E2E" />
+              <circle cx="112" cy="38" r="3.5" fill="#2E2E2E" />
+              <!-- Gift Present box Badge -->
+              <rect x="90" y="168" width="20" height="18" rx="2" fill="#FFA5C3" />
+              <rect x="88" y="165" width="24" height="5" fill="#FF729F" />
+              <rect x="98" y="165" width="4" height="21" fill="#5F44C1" />
+              <rect x="88" y="173" width="24" height="4" fill="#5F44C1" />
+            </svg>
+          </div>
+          <span class="card-label">a song</span>
+        </div>
+      </div>
+
+      <button id="btn-selection-next" class="btn-primary" style="margin-top: 30px; max-width: 250px; margin-left: auto; margin-right: auto;" disabled>next ➔</button>
+      <button id="btn-selection-back" class="btn-outline" style="margin-top: 15px;">← back</button>
+    </div>
+
+    <!-- STAGE 3.1: Memories Subpage -->
+    <div id="stage-memories-details" class="card-stage">
+      <div class="search-engine-header">
+        <h2 class="search-logo">memories</h2>
+        <!-- Search Bar -->
+        <div class="search-bar-wrapper">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-input" value="moments of us" readonly>
+        </div>
+        <!-- Mock Google Tabs -->
+        <div class="search-tabs-scroll">
+          <span class="search-tab">All</span>
+          <span class="search-tab">Images</span>
+          <span class="search-tab">Videos</span>
+          <span class="search-tab">News</span>
+          <span class="search-tab">Maps</span>
+          <span class="search-tab active">Memories</span>
+        </div>
+      </div>
+
+      <div class="search-results-grid">
+        <div class="result-img-card" data-album="perfect_adventure">
+          <img src="" alt="best pic of meesa">
+          <span class="result-cap">best pic of meesa</span>
+        </div>
+        <div class="result-img-card" data-album="endless_laughter">
+          <img src="" alt="Endless Laughter">
+          <span class="result-cap">Endless Laughter 😂</span>
+        </div>
+        <div class="result-img-card" data-album="celebrations">
+          <img src="" alt="Celebrations">
+          <span class="result-cap">Celebrations 🎉</span>
+        </div>
+        <div class="result-img-card" data-album="besties_forever">
+          <img src="" alt="Besties Forever">
+          <span class="result-cap">Besties Forever ✨</span>
+        </div>
+      </div>
+      <button class="btn-outline btn-back-selection">← back</button>
+    </div>
+
+    <!-- STAGE 3.2: Letter Subpage -->
+    <div id="stage-letter-details" class="card-stage">
+      <div class="letter-card-container">
+        <div class="letter-badge">FOR YOUR EYES ONLY</div>
+        
+        <h3 class="letter-salutation">Happy Birthday, Bestie!</h3>
+        
+        <div class="letter-content-body handwritten-letter">
+          <p>You're the sunshine on my rainy days, the giggle in every long call, and the friend I never knew I needed until you showed up in my life.</p>
+          <p>Thank you for laughing at my worst jokes, holding space for the messy days, and celebrating every tiny win like it's the world cup.</p>
+          <p>This year, may all the good things you've been waiting for finally find you. More little wins. Softer mornings. Louder laughter.</p>
+          <p class="letter-closing">I love you. Forever your tall friend. 🦒</p>
+        </div>
+      </div>
+
+      <button class="btn-outline btn-back-selection">← back</button>
+    </div>
+
+    <!-- STAGE 3.3: Song Subpage -->
+    <div id="stage-song-details" class="card-stage">
+      <div class="song-card-container">
+        <h3 class="song-header-title">a lil song for you</h3>
+        <p class="song-header-subtitle">Count On Me – Bruno Mars</p>
+        
+        <!-- Gradient Music Player Block -->
+        <div class="gradient-player-block" id="btn-play-pause-song">
+          <div class="visualizer-overlay hidden" id="music-bars">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </div>
+          <div class="play-circle-btn">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="#5F44C1" class="play-icon"><path d="M8 5v14l11-7z"/></svg>
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="#5F44C1" class="pause-icon hidden"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-outline btn-back-selection">← back</button>
+    </div>
+
+    <!-- STAGE 4: Birthday Greeting Card Finale -->
+    <div id="stage-birthday-card" class="card-stage">
+      <div class="finale-card-container">
+        <div class="finale-badge">IT'S YOUR DAY</div>
+        <h1 class="finale-happy-title">happy birthday</h1>
+        
+        <div class="polaroid-frame-finale">
+          <video id="celebration-video-card" src="assets/asw.mp4" autoplay loop muted playsinline style="width: 100%; height: auto; aspect-ratio: 1/1; object-fit: cover; display: block; border-radius: 4px; background: #000;"></video>
+          <div class="polaroid-caption-finale"><span class="bestie-name-placeholder">Bestie</span> ✨</div>
+        </div>
+
+        <!-- Voice Note Audio Box Down -->
+        <div class="voice-note-box" id="btn-play-pause-voice">
+          <audio id="voice-message-audio" src="assets/voice_message.ogg" loop></audio>
+          <div class="voice-note-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="#ffffff" class="voice-play-icon"><path d="M8 5v14l11-7z"/></svg>
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="#ffffff" class="voice-pause-icon hidden"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          </div>
+          <div class="voice-note-info">
+            <div class="voice-title">voice note from your tall friend 🎧</div>
+            <div class="voice-status">click to listen</div>
+          </div>
+        </div>
+
+        <!-- Emojis row inside card -->
+        <div class="card-emojis-row">
+          <span>🎂</span>
+          <span>🎈</span>
+          <span>🎁</span>
+        </div>
+      </div>
+
+      <button id="btn-one-more-thing" class="btn-primary" style="margin-top: 24px; max-width: 250px; margin-left: auto; margin-right: auto; display: block;">one more thing ➔</button>
+      <button id="btn-birthday-card-back" class="btn-outline" style="margin-top: 15px;">← back</button>
+      
+      <div class="tall-friend-credit">made with 💜 by your tall friend</div>
+    </div>
+
+    <!-- STAGE 4.5: Interactive Cake Finale -->
+    <div id="stage-cake-finale" class="card-stage">
+      <div class="celebration-card">
+        <h3 class="finale-title">Time to make a wish! 🎂</h3>
+        <p class="section-desc" style="margin-bottom: 25px;">Click each candle to blow them out!</p>
+
+        <!-- Wish Video Box -->
+        <div class="wish-video-box">
+          <video id="wish-video-player" src="assets/wish_video.mp4" controls autoplay loop muted playsinline></video>
+        </div>
+
+        <!-- Virtual Interactive Cake -->
+        <div class="cake-container">
+          <div class="cake">
+            <div class="plate"></div>
+            <div class="layer layer-bottom"></div>
+            <div class="layer layer-middle"></div>
+            <div class="layer layer-top"></div>
+            <div class="icing"></div>
+            <div class="drips">
+              <div class="drip dp-1"></div>
+              <div class="drip dp-2"></div>
+              <div class="drip dp-3"></div>
+            </div>
+            <!-- Candles -->
+            <div class="candles-wrapper">
+              <div class="candle c-1 active-candle" data-id="1">
+                <div class="flame"></div>
+              </div>
+              <div class="candle c-2 active-candle" data-id="2">
+                <div class="flame"></div>
+              </div>
+              <div class="candle c-3 active-candle" data-id="3">
+                <div class="flame"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wish NotePad Card -->
+        <div class="wish-note-pad">
+          <div class="notepad-header">
+            <span>Make a wish note 📝</span>
+          </div>
+          <textarea id="wish-notepad-text" placeholder="Write a small birthday note here..."></textarea>
+          <div class="notepad-footer">
+            <span id="notepad-save-status">Saved automatically! 💾</span>
+          </div>
+        </div>
+
+        <button id="btn-relight" class="btn-secondary hidden" style="margin-top: 25px;">Relight Candles 🕯️</button>
+        <div style="display: flex; gap: 12px; justify-content: center; margin-top: 15px; width: 100%;">
+          <button id="btn-cake-back" class="btn-outline" style="margin: 0;">← back</button>
+          <button id="btn-restart-app" class="btn-outline hidden" style="margin: 0;">🔄 restart</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Gallery Lightbox Modal -->
+  <div id="gallery-lightbox" class="lightbox-modal hidden">
+    <button id="lightbox-close" class="lightbox-close-btn">&times;</button>
+    <div class="lightbox-content-wrapper">
+      <div class="lightbox-media-container" id="lightbox-media-container">
+        <!-- Dynamic media here -->
+      </div>
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+    <button id="lightbox-prev" class="lightbox-nav-btn prev-btn">&#10094;</button>
+    <button id="lightbox-next" class="lightbox-nav-btn next-btn">&#10095;</button>
+  </div>
+
+  <!-- STAGE 5: Settings Drawer -->
+  <div id="settings-panel" class="settings-drawer hidden">
+    <div class="settings-header">
+      <h3>Customize Card 🎨</h3>
+      <button id="settings-close" class="close-btn">&times;</button>
+    </div>
+    <div class="settings-body">
+      <div class="setting-item">
+        <label for="set-bestie-name">Bestie's Name</label>
+        <input type="text" id="set-bestie-name" value="Bestie">
+      </div>
+      <div class="setting-item">
+        <label for="set-password">Access Password</label>
+        <input type="text" id="set-password" value="krishhh">
+      </div>
+      <div class="setting-item">
+        <label for="set-hint">Password Hint</label>
+        <input type="text" id="set-hint" value="What animal has a very long neck? 🦒">
+      </div>
+      <div class="setting-item">
+        <label for="set-message">Custom Letter Text (HTML safe)</label>
+        <textarea id="set-message" rows="5">You're the sunshine on my rainy days, the giggle in every long call, and the friend I never knew I needed until you showed up in my life.
+
+Thank you for laughing at my worst jokes, holding space for the messy days, and celebrating every tiny win like it's the world cup.
+
+This year, may all the good things you've been waiting for finally find you. More little wins. Softer mornings. Louder laughter.</textarea>
+      </div>
+
+      <!-- Custom Album Media Settings -->
+      <h4 style="margin-top: 20px; font-family: 'Fredoka', sans-serif; color: var(--primary-color);">Memory Albums Media 📸</h4>
+      <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.3;">
+        Place files inside the <code>assets/album_name/</code> folder (e.g. <code>pic1.jpg</code>, <code>video1.mp4</code>) and type their paths here separated by commas.
+      </p>
+      <div class="setting-item">
+        <label for="set-album-perfect">Perfect Adventure Files</label>
+        <input type="text" id="set-album-perfect" placeholder="e.g. assets/perfect_adventure/pic1.jpg, assets/perfect_adventure/video1.mp4">
+      </div>
+      <div class="setting-item">
+        <label for="set-album-laughter">Endless Laughter Files</label>
+        <input type="text" id="set-album-laughter" placeholder="e.g. assets/endless_laughter/pic1.jpg">
+      </div>
+      <div class="setting-item">
+        <label for="set-album-celebrations">Celebrations Files</label>
+        <input type="text" id="set-album-celebrations" placeholder="e.g. assets/celebrations/pic1.jpg">
+      </div>
+      <div class="setting-item">
+        <label for="set-album-besties">Besties Forever Files</label>
+        <input type="text" id="set-album-besties" placeholder="e.g. assets/besties_forever/pic1.jpg">
+      </div>
+
+      <button id="btn-save-settings" class="btn-primary" style="margin-top: 15px;">Save & Restart 💾</button>
+    </div>
+  </div>
+
+  <script src="app.js?v=18"></script>
+</body>
+</html>
