@@ -2,12 +2,8 @@
 let config = {
   bestieName: "Bestie",
   password: "krishhh",
-  hint: "What animal has a very long neck? 🦒",
-  message: `You're the sunshine on my rainy days, the giggle in every long call, and the friend I never knew I needed until you showed up in my life.
-
-Thank you for laughing at my worst jokes, holding space for the messy days, and celebrating every tiny win like it's the world cup.
-
-This year, may all the good things you've been waiting for finally find you. More little wins. Softer mornings. Louder laughter.`,
+  hint: "sanjayyy ,sharuu ,rishhh,sridharn,ungleuncle,krishhh",
+  message: `Happy birthday di erumma  ne ore alu nuu unaku wish onu ta kedu ana ne ore gem dii na eppo sad aa story pota illa irntha you will be there dii ana enna unna varapu yaturatahu enaku romba pudikum ana eni pana matta neee solla matta enium panuvan ana ne ore good friend di ana enna kongam kuda arive illal unaku sona solitu irkulam happy birthday dii eruma!`,
   // Comma-separated media file lists for each album
   albumPerfect: "assets/perfect_adventure/pic1.jpg, assets/perfect_adventure/pic2.png, assets/perfect_adventure/pic3.png, assets/perfect_adventure/pic4.png, assets/perfect_adventure/pic5.jpg",
   albumLaughter: "assets/endless_laughter/video1.mp4, assets/endless_laughter/video2.mp4, assets/endless_laughter/video3.mp4, assets/endless_laughter/video4.mp4, assets/endless_laughter/video5.mp4",
@@ -44,6 +40,8 @@ config.albumPerfect = "assets/perfect_adventure/pic1.jpg, assets/perfect_adventu
 config.albumLaughter = "assets/endless_laughter/video1.mp4, assets/endless_laughter/video2.mp4, assets/endless_laughter/video3.mp4, assets/endless_laughter/video4.mp4, assets/endless_laughter/video5.mp4";
 config.albumCelebrations = "assets/celebrations/video1.mp4, assets/celebrations/pic1.jpeg, assets/celebrations/video3.mp4, assets/celebrations/video4.mp4, assets/celebrations/video5.mp4";
 config.albumBesties = "assets/besties_forever/pic1.jpg, assets/besties_forever/pic2.jpg, assets/besties_forever/pic3.jpg, assets/besties_forever/video1.mp4, assets/besties_forever/video2.mp4, assets/besties_forever/video3.mp4, assets/besties_forever/video4.mp4";
+config.hint = "sanjayyy ,sharuu ,rishhh,sridharn,ungleuncle,krishhh";
+config.message = `Happy birthday di erumma  ne ore alu nuu unaku wish onu ta kedu ana ne ore gem dii na eppo sad aa story pota illa irntha you will be there dii ana enna unna varapu yaturatahu enaku romba pudikum ana eni pana matta neee solla matta enium panuvan ana ne ore good friend di ana enna kongam kuda arive illal unaku sona solitu irkulam happy birthday dii eruma!`;
 if (config.password === "giraffe") {
   config.password = "krishhh";
 }
