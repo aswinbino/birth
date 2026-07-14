@@ -95,8 +95,8 @@ function applyConfig() {
       }
     });
     // Add signature tag at the end if not there
-    if (!html.includes("I love you. Forever your tall friend.")) {
-      html += `<p class="letter-closing">I love you. Forever your tall friend. 🦒</p>`;
+    if (!html.includes("Forever your friend. aswin")) {
+      html += `<p class="letter-closing">Forever your friend. aswin</p>`;
     }
     letterBody.innerHTML = html;
   }
