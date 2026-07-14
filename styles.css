@@ -1305,3 +1305,142 @@ body {
   color: var(--text-muted);
   opacity: 0.8;
 }
+
+/* Virtual Interactive Cake styling */
+.cake-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 220px;
+  margin: 20px auto;
+  position: relative;
+  max-width: 320px;
+}
+
+.cake {
+  position: relative;
+  width: 180px;
+  height: 120px;
+  margin-top: 50px;
+}
+
+.plate {
+  position: absolute;
+  bottom: -10px;
+  left: -20px;
+  width: 220px;
+  height: 15px;
+  background: #E4DFD5;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.layer {
+  position: absolute;
+  width: 180px;
+  border-radius: 50% / 20px;
+}
+
+.layer-bottom {
+  bottom: 0;
+  height: 60px;
+  background: #E88B9E; /* Strawberry pink */
+  box-shadow: inset 0 -10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.layer-middle {
+  bottom: 25px;
+  height: 60px;
+  background: #FFFDF9; /* Cream filling */
+  border-bottom: 5px solid #CF8C35; /* Biscuit layer */
+}
+
+.layer-top {
+  bottom: 50px;
+  height: 50px;
+  background: #E88B9E; /* Strawberry pink top */
+}
+
+.icing {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  width: 180px;
+  height: 30px;
+  background: #FFFDF9;
+  border-radius: 50% / 15px;
+}
+
+.drips {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  width: 180px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.drip {
+  width: 12px;
+  height: 20px;
+  background: #FFFDF9;
+  border-radius: 0 0 10px 10px;
+  margin-top: -5px;
+}
+
+.dp-1 { height: 18px; margin-left: 20px; }
+.dp-2 { height: 25px; }
+.dp-3 { height: 15px; margin-right: 20px; }
+
+/* Candles wrapper and placement */
+.candles-wrapper {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: 180px;
+  height: 50px;
+}
+
+.candle {
+  position: absolute;
+  width: 8px;
+  height: 40px;
+  background: linear-gradient(to right, #FFF7D6, #FFDE7D);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.3s ease;
+}
+
+.candle::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 3px;
+  width: 2px;
+  height: 6px;
+  background: #333; /* Wick */
+}
+
+.c-1 { left: 40px; top: 10px; }
+.c-2 { left: 86px; top: 0px; }
+.c-3 { left: 132px; top: 10px; }
+
+/* Candle Flame styling */
+.flame {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 16px;
+  background: radial-gradient(circle at bottom, #FFD000 20%, #FF6A00 100%);
+  border-radius: 50% 50% 20% 20%;
+  box-shadow: 0 0 10px rgba(255, 106, 0, 0.5), 0 0 20px rgba(255, 208, 0, 0.3);
+  animation: flicker 0.15s ease-in-out infinite alternate;
+  transform-origin: bottom center;
+}
+
+.candle:not(.active-candle) {
+  opacity: 0.65;
+  transform: scaleY(0.9);
+}
